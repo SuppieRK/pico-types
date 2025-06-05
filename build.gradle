@@ -1,0 +1,159 @@
+import java.nio.charset.StandardCharsets
+
+plugins {
+	// IDE
+	id 'idea'
+
+	// Language
+	id 'java'
+	id 'java-library'
+
+	// Publishing
+	id 'com.vanniktech.maven.publish' version '0.32.0'
+
+	id 'jacoco'
+
+	// https://plugins.gradle.org/plugin/info.solidsoft.pitest
+	id 'info.solidsoft.pitest' version '1.15.0'
+
+	// https://plugins.gradle.org/plugin/com.diffplug.gradle.spotless
+	id 'com.diffplug.spotless' version '7.0.4'
+
+	id 'org.sonarqube' version '6.2.0.5505'
+}
+
+group = "$GROUP"
+version = "$VERSION_NAME"
+description = "$POM_DESCRIPTION"
+
+// Source code properties
+java {
+	def version = JavaVersion.VERSION_17
+
+	sourceCompatibility = version.toString()
+	targetCompatibility = version.toString()
+
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(version.toString())
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	// https://mvnrepository.com/artifact/org.junit/junit-bom
+	testImplementation(platform('org.junit:junit-bom:5.13.0'))
+
+	// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
+	testImplementation('org.junit.jupiter:junit-jupiter')
+
+	// https://mvnrepository.com/artifact/org.junit.jupiter/junit-platform-launcher
+	testRuntimeOnly('org.junit.platform:junit-platform-launcher')
+
+	// https://mvnrepository.com/artifact/nl.jqno.equalsverifier/equalsverifier-nodep
+	testImplementation('nl.jqno.equalsverifier:equalsverifier-nodep:4.0')
+
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+	testImplementation('com.fasterxml.jackson.core:jackson-databind:2.19.0')
+}
+
+test {
+	useJUnitPlatform()
+
+	testLogging {
+		events "passed", "skipped", "failed"
+	}
+
+	finalizedBy jacocoTestReport
+}
+
+jacocoTestCoverageVerification {
+	violationRules {
+		rule {
+			limit {
+				minimum = 1
+			}
+		}
+	}
+}
+
+jacocoTestReport {
+	reports {
+		html.required = true
+		xml.required = true
+		csv.required = false
+	}
+
+	finalizedBy 'pitest'
+}
+
+pitest {
+	targetClasses = [
+		'io.github.suppierk.picotypes.*'
+	]
+	threads = 4
+	outputFormats = ['HTML']
+	timestampedReports = false
+	junit5PluginVersion = '1.2.1'
+
+	reportAggregator {
+		testStrengthThreshold.set(100)
+		mutationThreshold.set(100)
+		maxSurviving.set(0)
+	}
+}
+
+// Enable Spotless code formatting rules
+spotless {
+	java {
+		target '**/src/*/java/**/*.java'
+
+		// Aligns with Intellij IDEA default settings
+		toggleOffOn('@formatter:off', '@formatter:on')
+
+		googleJavaFormat()
+	}
+
+	groovyGradle {
+		target '**/*.gradle'
+		greclipse()
+	}
+}
+
+tasks.register('sourceJar', Jar){
+	dependsOn classes
+	archiveClassifier.set('sources')
+	from sourceSets.main.allSource
+}
+
+tasks.register('javadocJar', Jar){
+	dependsOn javadoc
+	archiveClassifier.set('javadoc')
+	from javadoc.destinationDir
+}
+
+artifacts {
+	archives jar
+	archives javadocJar
+	archives sourceJar
+}
+
+// Configure several tasks additionally for Gradle
+tasks.withType(Copy).configureEach {
+	duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.encoding = StandardCharsets.UTF_8.name()
+	dependsOn(spotlessJavaCheck)
+}
+
+sonar {
+	properties {
+		property 'sonar.projectKey', 'SuppieRK_***'
+		property 'sonar.organization', 'suppierk'
+		property 'sonar.host.url', 'https://sonarcloud.io'
+	}
+}
