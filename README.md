@@ -7,6 +7,24 @@
 
 Thin abstract wrappers over Java data types to reinforce your domain with compile-type checks.
 
+## [How to add?](https://central.sonatype.com/artifact/io.github.suppierk/pico-types)
+
+- **Maven**
+
+```xml
+<dependency>
+  <groupId>io.github.suppierk</groupId>
+  <artifactId>pico-types</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
+- **Gradle** (_works for both Groovy and Kotlin_)
+
+```groovy
+implementation('io.github.suppierk:pico-types:1.0.0')
+```
+
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-orange.svg)](https://sonarcloud.io/summary/overall?id=SuppieRK_pico-types)
 
 ## Technical aspects
@@ -140,7 +158,7 @@ is [ubiquitous language dictionary](https://ddd-practitioners.com/home/glossary/
 in a different flavor:
 
 Depending on the architecture of your system, if all services are consumers of the same API it will make sense to
-enforce using specific object from that service, e.g. if everyone connect to `retail` team service, there must be only
+enforce using specific object from that service, e.g. if everyone connect to `team1` team service, there must be only
 `com.shiny.team1.CustomerUserId`.
 
 - However, once this system constraint will be broken (and it will be) there will be a lot of migration pain.
