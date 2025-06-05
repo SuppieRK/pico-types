@@ -1,6 +1,13 @@
 # Pico Types
 
+> The work on this software project is in no way associated with my employer nor with the role I'm having at my
+> employer.
+>
+> I maintain this project alone and as much or as little as my **spare time** permits using my **personal** equipment.
+
 Thin abstract wrappers over Java data types to reinforce your domain with compile-type checks.
+
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-orange.svg)](https://sonarcloud.io/summary/overall?id=SuppieRK_pico-types)
 
 ## Technical aspects
 
