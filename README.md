@@ -35,7 +35,7 @@ can do this:
 UUID userId;
 UUID merchantId;
 
-// There is nothing wrong with this - except when we are in a hurry, skip testing, and it will reach production.
+// There is nothing wrong with this language wise - except when it will reach production.
 userId = placeOrder(merchantId, userId);
 ```
 
@@ -48,7 +48,7 @@ CartId place(Collection<ItemId> ids);
 // We were in fact looking for an employee in an affiliate company!
 EmployeeId fetchUser(AffiliateCompanyId companyId);
 
-// We won't be able to make the same mistake as above with this signature - it will simply not compile
+// We won't be able to make the same mistake - it will simply not compile
 OrderId placeOrder(UserId userId, MerchantId merchantId);
 ```
 
@@ -154,7 +154,14 @@ Please, don't do that. ChatGPT can be quite helpful if you are stuck with the na
 Consider this example:
 
 ```java
-UUID doingSuperImportantWork(UUID userId, UUID companyId, Instant startingFrom, int employeeCount, double fare, boolean includeWeekend);
+UUID doingSuperImportantWork(
+        UUID userId, 
+        UUID companyId, 
+        Instant startingFrom, 
+        int employeeCount,
+        double fare, 
+        boolean includeWeekend
+);
 ```
 
 It might be tempting to do something like:
