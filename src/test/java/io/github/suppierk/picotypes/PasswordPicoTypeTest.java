@@ -4,13 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.nio.charset.StandardCharsets;
 import java.util.concurrent.ThreadLocalRandom;
 import nl.jqno.equalsverifier.EqualsVerifier;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
 
 class PasswordPicoTypeTest {
   private final byte[] value =
@@ -40,12 +39,7 @@ class PasswordPicoTypeTest {
 
     byteArray[0] = (byte) (byteArray[0] + 1);
 
-    try {
-      assertArrayEquals(byteArray, arrayWrapper.value());
-      Assertions.fail("Should have thrown an exception");
-    } catch (AssertionFailedError e) {
-      // Expected
-    }
+    assertThrows(AssertionError.class, () -> assertArrayEquals(byteArray, arrayWrapper.value()));
   }
 
   @Test
@@ -59,12 +53,7 @@ class PasswordPicoTypeTest {
 
     byteArray[0] = (byte) (byteArray[0] + 1);
 
-    try {
-      assertArrayEquals(byteArray, arrayWrapper.value());
-      Assertions.fail("Should have thrown an exception");
-    } catch (AssertionFailedError e) {
-      // Expected
-    }
+    assertThrows(AssertionError.class, () -> assertArrayEquals(byteArray, arrayWrapper.value()));
   }
 
   @Test
