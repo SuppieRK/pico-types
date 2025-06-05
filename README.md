@@ -36,9 +36,7 @@ UUID userId;
 UUID merchantId;
 
 // There is nothing wrong with this - except when we are in a hurry, skip testing, and it will reach production.
-userId =
-
-placeOrder(merchantId, userId);
+userId = placeOrder(merchantId, userId);
 ```
 
 Wouldn't it be nicer if previous examples could be rewritten with more support from the language itself?
@@ -88,7 +86,7 @@ public class Solution {
         var userId = new UserId(UUID.randomUUID());
         var merchantId = new MerchantId(UUID.randomUUID());
 
-        // Now you will get a compile time warning if you will try anything from the problem statement above
+        // Now you will get a compile time warning if you will try anything from the problem above
         var orderId = placeOrder(userId, merchantId);
         System.out.println(orderId);
     }
@@ -138,8 +136,7 @@ Depending on the architecture of your system, if all services are consumers of t
 enforce using specific object from that service, e.g. if everyone connect to `retail` team service, there must be only
 `com.shiny.team1.CustomerUserId`.
 
-- However, once this system constraint will be broken (and it will be) there will be a lot of migration pain (
-  migr-ain-e, he-he).
+- However, once this system constraint will be broken (and it will be) there will be a lot of migration pain.
 
 It would be best to introduce a company-wide library with `com.shiny.CustomerUserId`.
 
