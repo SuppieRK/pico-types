@@ -26,7 +26,7 @@ package io.github.suppierk.picotypes;
 /** Utility interface offering default masked value to hide sensitive data */
 public interface SecurePicoType {
   /** Default mask value. */
-  String MASK = "*******";
+  String DEFAULT_MASK = "*******";
 
   /**
    * Provides value to hide sensitive data.
@@ -34,6 +34,6 @@ public interface SecurePicoType {
    * @return {@link String} mask to use during serialization
    */
   default String mask() {
-    return MASK;
+    return DEFAULT_MASK;
   }
 }
