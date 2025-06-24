@@ -53,7 +53,7 @@ dependencies {
 	testRuntimeOnly('org.junit.platform:junit-platform-launcher')
 
 	// https://mvnrepository.com/artifact/nl.jqno.equalsverifier/equalsverifier-nodep
-	testImplementation('nl.jqno.equalsverifier:equalsverifier-nodep:4.0.2')
+	testImplementation('nl.jqno.equalsverifier:equalsverifier-nodep:4.0.3')
 
 	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
 	testImplementation('com.fasterxml.jackson.core:jackson-databind:2.19.1')
