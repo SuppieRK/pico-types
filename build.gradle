@@ -56,7 +56,7 @@ dependencies {
 	testImplementation('nl.jqno.equalsverifier:equalsverifier-nodep:4.0.5')
 
 	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-	testImplementation('com.fasterxml.jackson.core:jackson-databind:2.19.1')
+	testImplementation('com.fasterxml.jackson.core:jackson-databind:2.19.2')
 }
 
 test {
