@@ -30,8 +30,7 @@ implementation("io.github.suppierk:pico-types:2.0.0")
 - Built for Java 17.
 - No third-party dependencies.
 - 100% unit and mutation test coverage.
-- `equals` and `hashCode` out of the box, no need to use Lombok - tested by strict form
-  of [EqualsVerifier](https://github.com/jqno/equalsverifier).
+- `equals` and `hashCode` out of the box, no need to use Lombok - tested by [EqualsVerifier](https://github.com/jqno/equalsverifier).
 - Extensibility - all classes are `abstract` and ready to be implemented:
     - In case when you need your own more specific type - you can simply extend `PicoType` itself.
 - `Optional`-like API
