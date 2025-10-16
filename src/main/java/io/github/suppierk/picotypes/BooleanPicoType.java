@@ -54,7 +54,9 @@ public abstract class BooleanPicoType implements PicoType<Boolean>, Comparable<B
 
   @Override
   public final boolean equals(Object o) {
-    return (o instanceof BooleanPicoType picoType) && Objects.equals(value, picoType.value);
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    return Objects.equals(value, ((BooleanPicoType) o).value);
   }
 
   @Override

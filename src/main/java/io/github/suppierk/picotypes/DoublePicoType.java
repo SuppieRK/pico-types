@@ -54,11 +54,12 @@ public abstract class DoublePicoType implements PicoType<Double>, Comparable<Dou
 
   @Override
   public final boolean equals(Object o) {
-    return (o instanceof DoublePicoType picoType)
-        && ((value == null && picoType.value == null)
-            || (value != null
-                && picoType.value != null
-                && Double.compare(value, picoType.value) == 0));
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    return ((value == null && ((DoublePicoType) o).value == null)
+        || (value != null
+            && ((DoublePicoType) o).value != null
+            && Double.compare(value, ((DoublePicoType) o).value) == 0));
   }
 
   @Override

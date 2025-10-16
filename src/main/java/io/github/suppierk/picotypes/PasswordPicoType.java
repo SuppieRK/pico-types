@@ -23,6 +23,7 @@
 
 package io.github.suppierk.picotypes;
 
+import java.security.MessageDigest;
 import java.util.Arrays;
 
 /**
@@ -48,9 +49,23 @@ public abstract class PasswordPicoType implements PicoType<byte[]>, SecurePicoTy
     return value == null ? null : Arrays.copyOf(value, value.length);
   }
 
+  /**
+   * Indicates whether some other object is "equal to" this one.
+   *
+   * <p>For passwords, we are using {@link MessageDigest#isEqual(byte[], byte[])} instead of {@link
+   * Arrays#equals(byte[], byte[])} - the reason for this is to avoid timing attacks.
+   *
+   * @param o the reference object with which to compare.
+   * @return {@code true} if this object is the same as the obj argument; {@code false} otherwise.
+   * @see <a href="https://cwe.mitre.org/data/definitions/208.html">CWE-208: Observable Timing
+   *     Discrepancy</a>
+   */
   @Override
   public final boolean equals(Object o) {
-    return (o instanceof PasswordPicoType picoType) && Arrays.equals(value, picoType.value);
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    if (value == null && ((PasswordPicoType) o).value == null) return true;
+    return MessageDigest.isEqual(value, ((PasswordPicoType) o).value);
   }
 
   @Override

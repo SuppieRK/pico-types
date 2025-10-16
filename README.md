@@ -15,14 +15,14 @@ Thin abstract wrappers over Java data types to reinforce your domain with compil
 <dependency>
   <groupId>io.github.suppierk</groupId>
   <artifactId>pico-types</artifactId>
-  <version>1.0.0</version>
+  <version>2.0.0</version>
 </dependency>
 ```
 
 - **Gradle** (_works for both Groovy and Kotlin_)
 
 ```groovy
-implementation('io.github.suppierk:pico-types:1.0.0')
+implementation('io.github.suppierk:pico-types:2.0.0')
 ```
 
 ## Technical aspects
@@ -45,11 +45,11 @@ The CI workflow uploads the latest JaCoCo (≈105 KB) and PIT mutation (≈44 KB
 
 ## Compatibility
 
-| Area              | Support                                                                    |
-|-------------------|----------------------------------------------------------------------------|
-| Minimum JDK       | 17 (enforced via Gradle toolchains)                                        |
-| CI JDKs           | Temurin 17 on Ubuntu runners                                               |
-| Build tooling     | Gradle 8.14 wrapper (consumers can use any Maven/Gradle client)            |
+| Area          | Support                                                         |
+|---------------|-----------------------------------------------------------------|
+| Minimum JDK   | 17 (enforced via Gradle toolchains)                             |
+| CI JDKs       | Temurin 17 on Ubuntu runners                                    |
+| Build tooling | Gradle 8.14 wrapper (consumers can use any Maven/Gradle client) |
 
 ## What is the problem?
 
@@ -143,6 +143,9 @@ public class Solution {
 | `T orElse(T)` / `orElseGet(Supplier)`                              | Defaulting helpers identical to `Optional`.                                     |
 | `T orElseThrow()` / `orElseThrow(Supplier)`                        | Fail fast when no value is present.                                             |
 | `equals` / `hashCode` / `toString`                                 | Final overrides supplied by concrete base classes to guarantee value semantics. |
+
+> Optional parity in terms of `map`/`flatMap` was skipped because these wrappers are typed and expected to work with
+> only one value type.
 
 ## What are the benefits?
 

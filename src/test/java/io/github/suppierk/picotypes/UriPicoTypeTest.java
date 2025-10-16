@@ -20,12 +20,12 @@ class UriPicoTypeTest {
 
   @Test
   void must_have_correct_equals_and_hashCode() {
-    EqualsVerifier.forClass(UriPicoType.class).verify();
+    EqualsVerifier.simple().forClass(UriPicoType.class).verify();
   }
 
   @Test
   void subclass_must_inherit_correct_equals_and_hashCode() {
-    EqualsVerifier.forClass(TestType.class).verify();
+    EqualsVerifier.simple().forClass(TestType.class).verify();
   }
 
   @Test

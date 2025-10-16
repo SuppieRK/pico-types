@@ -55,7 +55,9 @@ public abstract class UuidPicoType implements PicoType<UUID>, Comparable<UuidPic
 
   @Override
   public final boolean equals(Object o) {
-    return (o instanceof UuidPicoType picoType) && Objects.equals(value, picoType.value());
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    return Objects.equals(value, ((UuidPicoType) o).value());
   }
 
   @Override

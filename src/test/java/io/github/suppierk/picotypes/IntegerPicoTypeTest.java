@@ -19,12 +19,12 @@ class IntegerPicoTypeTest {
 
   @Test
   void must_have_correct_equals_and_hashCode() {
-    EqualsVerifier.forClass(IntegerPicoType.class).verify();
+    EqualsVerifier.simple().forClass(IntegerPicoType.class).verify();
   }
 
   @Test
   void subclass_must_inherit_correct_equals_and_hashCode() {
-    EqualsVerifier.forClass(TestType.class).verify();
+    EqualsVerifier.simple().forClass(TestType.class).verify();
   }
 
   @Test
