@@ -25,8 +25,6 @@ Thin abstract wrappers over Java data types to reinforce your domain with compil
 implementation('io.github.suppierk:pico-types:1.0.0')
 ```
 
-[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-orange.svg)](https://sonarcloud.io/summary/overall?id=SuppieRK_pico-types)
-
 ## Technical aspects
 
 - Built for Java 17.
@@ -37,6 +35,21 @@ implementation('io.github.suppierk:pico-types:1.0.0')
 - Extensibility - all classes are `abstract` and ready to be implemented:
     - In case when you need your own more specific type - you can simply extend `PicoType` itself.
 - `Optional`-like API
+
+## Build & Quality
+
+[![Build status](https://github.com/SuppieRK/pico-types/actions/workflows/build.yml/badge.svg)](https://github.com/SuppieRK/pico-types/actions/workflows/build.yml)
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-orange.svg)](https://sonarcloud.io/summary/overall?id=SuppieRK_pico-types)
+
+The CI workflow uploads the latest JaCoCo (≈105 KB) and PIT mutation (≈44 KB) reports as build artifacts for every run.
+
+## Compatibility
+
+| Area              | Support                                                                    |
+|-------------------|----------------------------------------------------------------------------|
+| Minimum JDK       | 17 (enforced via Gradle toolchains)                                        |
+| CI JDKs           | Temurin 17 on Ubuntu runners                                               |
+| Build tooling     | Gradle 8.14 wrapper (consumers can use any Maven/Gradle client)            |
 
 ## What is the problem?
 
@@ -118,6 +131,19 @@ public class Solution {
 }
 ```
 
+## PicoType API at a glance
+
+| Method                                                             | Summary                                                                         |
+|--------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| `T value()`                                                        | Returns the wrapped value (nullable).                                           |
+| `boolean isPresent()` / `isEmpty()`                                | Presence checks mirroring `Optional`.                                           |
+| `void ifPresent(Consumer)` / `ifPresentOrElse(Consumer, Runnable)` | Execute callbacks depending on presence.                                        |
+| `PicoType<T> or(Supplier)`                                         | Lazily replace an empty instance.                                               |
+| `Stream<T> stream()`                                               | Expose the content as a single-value stream.                                    |
+| `T orElse(T)` / `orElseGet(Supplier)`                              | Defaulting helpers identical to `Optional`.                                     |
+| `T orElseThrow()` / `orElseThrow(Supplier)`                        | Fail fast when no value is present.                                             |
+| `equals` / `hashCode` / `toString`                                 | Final overrides supplied by concrete base classes to guarantee value semantics. |
+
 ## What are the benefits?
 
 ### Improved productivity
@@ -142,7 +168,7 @@ explanations for seemingly obvious things to some and completely unknown to othe
 
 > Is `UserId` returned from one service the same as `UserId` consumed (or returned) by another service?
 
-The only solution to this problem is adopting Domain-Driven Design and building
+The only reliable solution to this problem is adopting Domain-Driven Design and building
 a [ubiquitous language dictionary](https://ddd-practitioners.com/home/glossary/ubiquitous-language/).
 
 For example, if we distinguish customers and merchants - it makes sense to stick to the `CustomerUserId` and
@@ -180,11 +206,11 @@ Consider this example:
 
 ```java
 UUID doingSuperImportantWork(
-        UUID userId, 
-        UUID companyId, 
-        Instant startingFrom, 
+        UUID userId,
+        UUID companyId,
+        Instant startingFrom,
         int employeeCount,
-        double fare, 
+        double fare,
         boolean includeWeekend
 );
 ```
@@ -216,7 +242,7 @@ SuperImportantWorkId doingSuperImportantWork(
 ```
 
 or (better yet) avoid having this many parameters for a method and split it onto smaller methods, otherwise if not
-possible introduce a single object, capturing these parameters within.
+possible introduce a single object capturing these parameters within.
 
 ## Implementation notes
 
@@ -245,7 +271,9 @@ Another reason why you want to avoid having more than one generic is `Optional`-
 assumption that both values of both types must not be `null`, we might need to have a combination where one value is
 nullable and the other is not: in that case, as I described before, please, consider using POJO / records.
 
-### How these types work with Jackson (GSON, etc.)?
+## Interoperability
+
+### Jackson (GSON, etc.)
 
 Since you will have to `extend` these classes, you can easily add support for your serialization library - here is an
 example for `UUID` and Jackson:
@@ -272,6 +300,18 @@ public class MyUuidType extends UuidPicoType {
 > It is a good idea to make this class `final` and its constructor `private` to disrupt possible inheritance chain.
 
 > This example is taken from `UuidPicoTypeTest` in this repository.
+
+## Versioning
+
+- Semantic Versioning: patch releases keep the same API, minor releases may add new types or defaults while maintaining
+  binary compatibility, and major releases may introduce breaking changes.
+- Java cadence: the library targets Java 17 and evaluates newer LTS releases as they become available; older JDKs are
+  not supported.
+
+## Maintenance
+
+Maintained in spare time by a single contributor. Issues and pull requests are welcome, but triage and response times
+may vary depending on availability.
 
 ## Inspired by
 
