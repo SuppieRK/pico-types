@@ -22,7 +22,7 @@ Thin abstract wrappers over Java data types to reinforce your domain with compil
 - **Gradle** (_works for both Groovy and Kotlin_)
 
 ```groovy
-implementation('io.github.suppierk:pico-types:2.0.0')
+implementation("io.github.suppierk:pico-types:2.0.0")
 ```
 
 ## Technical aspects
