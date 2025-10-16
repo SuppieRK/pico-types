@@ -18,12 +18,12 @@ class BooleanPicoTypeTest {
 
   @Test
   void must_have_correct_equals_and_hashCode() {
-    EqualsVerifier.forClass(BooleanPicoType.class).verify();
+    EqualsVerifier.simple().forClass(BooleanPicoType.class).verify();
   }
 
   @Test
   void subclass_must_inherit_correct_equals_and_hashCode() {
-    EqualsVerifier.forClass(TestType.class).verify();
+    EqualsVerifier.simple().forClass(TestType.class).verify();
   }
 
   @Test

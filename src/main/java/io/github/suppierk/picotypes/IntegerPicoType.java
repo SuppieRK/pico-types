@@ -54,7 +54,9 @@ public abstract class IntegerPicoType implements PicoType<Integer>, Comparable<I
 
   @Override
   public final boolean equals(Object o) {
-    return (o instanceof IntegerPicoType picoType) && Objects.equals(value, picoType.value);
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    return Objects.equals(value, ((IntegerPicoType) o).value);
   }
 
   @Override

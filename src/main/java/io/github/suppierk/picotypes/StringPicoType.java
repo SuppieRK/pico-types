@@ -54,7 +54,9 @@ public abstract class StringPicoType implements PicoType<String>, Comparable<Str
 
   @Override
   public final boolean equals(Object o) {
-    return (o instanceof StringPicoType picoType) && Objects.equals(value, picoType.value());
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    return Objects.equals(value, ((StringPicoType) o).value());
   }
 
   @Override

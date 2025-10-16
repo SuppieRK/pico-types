@@ -20,12 +20,12 @@ class PasswordPicoTypeTest {
 
   @Test
   void must_have_correct_equals_and_hashCode() {
-    EqualsVerifier.forClass(PasswordPicoType.class).verify();
+    EqualsVerifier.simple().forClass(PasswordPicoType.class).verify();
   }
 
   @Test
   void subclass_must_inherit_correct_equals_and_hashCode() {
-    EqualsVerifier.forClass(TestType.class).verify();
+    EqualsVerifier.simple().forClass(TestType.class).verify();
   }
 
   @Test

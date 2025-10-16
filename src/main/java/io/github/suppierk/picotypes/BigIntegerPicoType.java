@@ -56,7 +56,9 @@ public abstract class BigIntegerPicoType
 
   @Override
   public final boolean equals(Object o) {
-    return (o instanceof BigIntegerPicoType picoType) && Objects.equals(value, picoType.value());
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    return Objects.equals(value, ((BigIntegerPicoType) o).value());
   }
 
   @Override

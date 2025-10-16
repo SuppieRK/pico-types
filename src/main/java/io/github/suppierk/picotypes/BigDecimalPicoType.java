@@ -56,9 +56,12 @@ public abstract class BigDecimalPicoType
 
   @Override
   public final boolean equals(Object o) {
-    return o instanceof BigDecimalPicoType picoType
-        && ((value == null && picoType.value == null)
-            || (value != null && picoType.value != null && value.compareTo(picoType.value) == 0));
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    return ((value == null && ((BigDecimalPicoType) o).value == null)
+        || (value != null
+            && ((BigDecimalPicoType) o).value != null
+            && value.compareTo(((BigDecimalPicoType) o).value) == 0));
   }
 
   @Override
