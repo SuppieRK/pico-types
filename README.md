@@ -39,7 +39,11 @@ implementation('io.github.suppierk:pico-types:2.0.0')
 ## Build & Quality
 
 [![Build status](https://github.com/SuppieRK/pico-types/actions/workflows/build.yml/badge.svg)](https://github.com/SuppieRK/pico-types/actions/workflows/build.yml)
-[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-orange.svg)](https://sonarcloud.io/summary/overall?id=SuppieRK_pico-types)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.suppierk/pico-types.svg)](https://search.maven.org/artifact/io.github.suppierk/pico-types)
+[![Javadoc](https://javadoc.io/badge2/io.github.suppierk/pico-types/javadoc.svg)](https://javadoc.io/doc/io.github.suppierk/pico-types)
+[![SonarCloud Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=SuppieRK_pico-types&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=SuppieRK_pico-types)
+[![SonarCloud Coverage](https://sonarcloud.io/api/project_badges/measure?project=SuppieRK_pico-types&metric=coverage)](https://sonarcloud.io/summary/new_code?id=SuppieRK_pico-types)
+[![SonarCloud Maintainability](https://sonarcloud.io/api/project_badges/measure?project=SuppieRK_pico-types&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=SuppieRK_pico-types)
 
 The CI workflow uploads the latest JaCoCo (≈105 KB) and PIT mutation (≈44 KB) reports as build artifacts for every run.
 
