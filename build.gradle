@@ -19,7 +19,7 @@ plugins {
 	// https://plugins.gradle.org/plugin/com.diffplug.gradle.spotless
 	id 'com.diffplug.spotless' version '8.0.0'
 
-	id 'org.sonarqube' version '6.3.1.5724'
+	id 'org.sonarqube' version '7.0.1.6134'
 }
 
 group = "$GROUP"
