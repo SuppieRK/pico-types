@@ -25,6 +25,8 @@ package io.github.suppierk.picotypes;
 
 import java.security.MessageDigest;
 import java.util.Arrays;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Abstract wrapper for passwords.
@@ -33,19 +35,19 @@ import java.util.Arrays;
  *     means of a byte array?</a>
  */
 public abstract class PasswordPicoType implements PicoType<byte[]>, SecurePicoType {
-  private final byte[] value;
+  private final byte @Nullable [] value;
 
   /**
    * Default constructor
    *
    * @param value to wrap. Can be {@code null}
    */
-  protected PasswordPicoType(byte[] value) {
+  protected PasswordPicoType(byte @Nullable [] value) {
     this.value = value == null ? null : Arrays.copyOf(value, value.length);
   }
 
   @Override
-  public byte[] value() {
+  public byte @Nullable [] value() {
     return value == null ? null : Arrays.copyOf(value, value.length);
   }
 
@@ -61,7 +63,7 @@ public abstract class PasswordPicoType implements PicoType<byte[]>, SecurePicoTy
    *     Discrepancy</a>
    */
   @Override
-  public final boolean equals(Object o) {
+  public final boolean equals(@Nullable Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     if (value == null && ((PasswordPicoType) o).value == null) return true;
@@ -74,7 +76,7 @@ public abstract class PasswordPicoType implements PicoType<byte[]>, SecurePicoTy
   }
 
   @Override
-  public String toString() {
+  public @NonNull String toString() {
     return getClass().getSimpleName() + "{value=" + mask() + '}';
   }
 }

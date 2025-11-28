@@ -24,27 +24,29 @@
 package io.github.suppierk.picotypes;
 
 import java.util.Objects;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /** Abstract wrapper for {@link Integer} type. */
 public abstract class IntegerPicoType implements PicoType<Integer>, Comparable<IntegerPicoType> {
-  private final Integer value;
+  @Nullable private final Integer value;
 
   /**
    * Default constructor
    *
    * @param value to wrap. Can be {@code null}
    */
-  protected IntegerPicoType(Integer value) {
+  protected IntegerPicoType(@Nullable Integer value) {
     this.value = value;
   }
 
   @Override
-  public Integer value() {
+  public @Nullable Integer value() {
     return value;
   }
 
   @Override
-  public int compareTo(IntegerPicoType o) {
+  public int compareTo(@NonNull IntegerPicoType o) {
     return Objects.requireNonNull(value(), "Cannot compare null value against another value")
         .compareTo(
             Objects.requireNonNull(
@@ -53,7 +55,7 @@ public abstract class IntegerPicoType implements PicoType<Integer>, Comparable<I
   }
 
   @Override
-  public final boolean equals(Object o) {
+  public final boolean equals(@Nullable Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     return Objects.equals(value, ((IntegerPicoType) o).value);
@@ -65,7 +67,7 @@ public abstract class IntegerPicoType implements PicoType<Integer>, Comparable<I
   }
 
   @Override
-  public String toString() {
+  public @NonNull String toString() {
     return getClass().getSimpleName() + "{value=" + value + '}';
   }
 }

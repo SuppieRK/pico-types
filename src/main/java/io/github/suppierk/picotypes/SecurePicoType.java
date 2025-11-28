@@ -23,6 +23,8 @@
 
 package io.github.suppierk.picotypes;
 
+import org.jspecify.annotations.NonNull;
+
 /** Utility interface offering default masked value to hide sensitive data */
 public interface SecurePicoType {
   /** Default mask value. */
@@ -33,7 +35,7 @@ public interface SecurePicoType {
    *
    * @return {@link String} mask to use during serialization
    */
-  default String mask() {
+  default @NonNull String mask() {
     return DEFAULT_MASK;
   }
 }

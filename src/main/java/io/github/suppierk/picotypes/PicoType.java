@@ -29,6 +29,8 @@ import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Core interface with default contract and {@link Optional}-like API
@@ -41,7 +43,7 @@ public interface PicoType<T> {
    *
    * @return current value (might be {@code null})
    */
-  T value();
+  @Nullable T value();
 
   /**
    * If a value is present, returns {@code true}, otherwise {@code false}.
@@ -67,9 +69,9 @@ public interface PicoType<T> {
    * @param action the action to be performed, if a value is present
    * @throws NullPointerException if value is present and the given action is {@code null}
    */
-  default void ifPresent(Consumer<? super T> action) {
+  default void ifPresent(@NonNull Consumer<? super T> action) {
     if (isPresent()) {
-      action.accept(value());
+      Objects.requireNonNull(action).accept(value());
     }
   }
 
@@ -82,11 +84,11 @@ public interface PicoType<T> {
    * @throws NullPointerException if a value is present and the given action is {@code null}, or no
    *     value is present and the given empty-based action is {@code null}.
    */
-  default void ifPresentOrElse(Consumer<? super T> action, Runnable emptyAction) {
+  default void ifPresentOrElse(@NonNull Consumer<? super T> action, @NonNull Runnable emptyAction) {
     if (isPresent()) {
-      action.accept(value());
+      Objects.requireNonNull(action).accept(value());
     } else {
-      emptyAction.run();
+      Objects.requireNonNull(emptyAction).run();
     }
   }
 
@@ -100,13 +102,12 @@ public interface PicoType<T> {
    * @throws NullPointerException if the supplying function is {@code null} or produces a {@code
    *     null} result
    */
-  default PicoType<T> or(Supplier<? extends PicoType<? extends T>> supplier) {
-    Objects.requireNonNull(supplier);
+  default PicoType<T> or(@NonNull Supplier<? extends PicoType<? extends T>> supplier) {
     if (isPresent()) {
       return this;
     } else {
       @SuppressWarnings("unchecked")
-      PicoType<T> r = (PicoType<T>) supplier.get();
+      PicoType<T> r = (PicoType<T>) Objects.requireNonNull(supplier).get();
       return Objects.requireNonNull(r);
     }
   }
@@ -117,7 +118,7 @@ public interface PicoType<T> {
    *
    * @return the optional value as a {@code Stream}
    */
-  default Stream<T> stream() {
+  default @NonNull Stream<T> stream() {
     if (isPresent()) {
       return Stream.of(value());
     } else {
@@ -131,7 +132,7 @@ public interface PicoType<T> {
    * @param other the value to be returned, if no value is present. May be {@code null}.
    * @return the value, if present, otherwise {@code other}
    */
-  default T orElse(T other) {
+  default @Nullable T orElse(@Nullable T other) {
     return isPresent() ? value() : other;
   }
 
@@ -143,8 +144,8 @@ public interface PicoType<T> {
    * @return the value, if present, otherwise the result produced by the supplying function
    * @throws NullPointerException if no value is present and the supplying function is {@code null}
    */
-  default T orElseGet(Supplier<? extends T> supplier) {
-    return isPresent() ? value() : supplier.get();
+  default @NonNull T orElseGet(@NonNull Supplier<? extends T> supplier) {
+    return isPresent() ? Objects.requireNonNull(value()) : Objects.requireNonNull(supplier).get();
   }
 
   /**
@@ -153,11 +154,11 @@ public interface PicoType<T> {
    * @return the non-{@code null} value described by this {@code PicoType}
    * @throws NoSuchElementException if no value is present
    */
-  default T orElseThrow() {
+  default @NonNull T orElseThrow() {
     if (isEmpty()) {
       throw new NoSuchElementException("No value present");
     }
-    return value();
+    return Objects.requireNonNull(value());
   }
 
   /**
@@ -171,11 +172,12 @@ public interface PicoType<T> {
    * @throws NullPointerException if no value is present and the exception supplying function is
    *     {@code null}
    */
-  default <X extends Throwable> T orElseThrow(Supplier<? extends X> exceptionSupplier) throws X {
+  default <X extends Throwable> @NonNull T orElseThrow(
+      @NonNull Supplier<? extends X> exceptionSupplier) throws X {
     if (isPresent()) {
-      return value();
+      return Objects.requireNonNull(value());
     } else {
-      throw exceptionSupplier.get();
+      throw Objects.requireNonNull(exceptionSupplier).get();
     }
   }
 }

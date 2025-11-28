@@ -24,27 +24,29 @@
 package io.github.suppierk.picotypes;
 
 import java.util.Objects;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /** Abstract wrapper for {@link String} type. */
 public abstract class StringPicoType implements PicoType<String>, Comparable<StringPicoType> {
-  private final String value;
+  @Nullable private final String value;
 
   /**
    * Default constructor
    *
    * @param value to wrap. Can be {@code null}
    */
-  protected StringPicoType(String value) {
+  protected StringPicoType(@Nullable String value) {
     this.value = value;
   }
 
   @Override
-  public String value() {
+  public @Nullable String value() {
     return value;
   }
 
   @Override
-  public int compareTo(StringPicoType o) {
+  public int compareTo(@NonNull StringPicoType o) {
     return Objects.requireNonNull(value(), "Cannot compare null value against another value")
         .compareTo(
             Objects.requireNonNull(
@@ -53,7 +55,7 @@ public abstract class StringPicoType implements PicoType<String>, Comparable<Str
   }
 
   @Override
-  public final boolean equals(Object o) {
+  public final boolean equals(@Nullable Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     return Objects.equals(value, ((StringPicoType) o).value());
@@ -65,7 +67,7 @@ public abstract class StringPicoType implements PicoType<String>, Comparable<Str
   }
 
   @Override
-  public String toString() {
+  public @NonNull String toString() {
     return getClass().getSimpleName() + "{value=" + value + '}';
   }
 }

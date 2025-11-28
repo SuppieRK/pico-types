@@ -25,27 +25,29 @@ package io.github.suppierk.picotypes;
 
 import java.util.Objects;
 import java.util.UUID;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /** Abstract wrapper for {@link UUID} type. */
 public abstract class UuidPicoType implements PicoType<UUID>, Comparable<UuidPicoType> {
-  private final UUID value;
+  @Nullable private final UUID value;
 
   /**
    * Default constructor
    *
    * @param value to wrap. Can be {@code null}
    */
-  protected UuidPicoType(UUID value) {
+  protected UuidPicoType(@Nullable UUID value) {
     this.value = value;
   }
 
   @Override
-  public UUID value() {
+  public @Nullable UUID value() {
     return value;
   }
 
   @Override
-  public int compareTo(UuidPicoType o) {
+  public int compareTo(@NonNull UuidPicoType o) {
     return Objects.requireNonNull(value(), "Cannot compare null value against another value")
         .compareTo(
             Objects.requireNonNull(
@@ -54,7 +56,7 @@ public abstract class UuidPicoType implements PicoType<UUID>, Comparable<UuidPic
   }
 
   @Override
-  public final boolean equals(Object o) {
+  public final boolean equals(@Nullable Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     return Objects.equals(value, ((UuidPicoType) o).value());
@@ -66,7 +68,7 @@ public abstract class UuidPicoType implements PicoType<UUID>, Comparable<UuidPic
   }
 
   @Override
-  public String toString() {
+  public @NonNull String toString() {
     return getClass().getSimpleName() + "{value=" + value + '}';
   }
 }
