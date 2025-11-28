@@ -15,14 +15,14 @@ Thin abstract wrappers over Java data types to reinforce your domain with compil
 <dependency>
   <groupId>io.github.suppierk</groupId>
   <artifactId>pico-types</artifactId>
-  <version>2.0.0</version>
+  <version>2.0.1</version>
 </dependency>
 ```
 
 - **Gradle** (_works for both Groovy and Kotlin_)
 
 ```groovy
-implementation("io.github.suppierk:pico-types:2.0.0")
+implementation("io.github.suppierk:pico-types:2.0.1")
 ```
 
 ## Technical aspects

@@ -25,6 +25,8 @@ package io.github.suppierk.picotypes;
 
 import java.security.MessageDigest;
 import java.util.Arrays;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Abstract wrapper for passwords.
@@ -33,19 +35,20 @@ import java.util.Arrays;
  *     means of a byte array?</a>
  */
 public abstract class PasswordPicoType implements PicoType<byte[]>, SecurePicoType {
-  private final byte[] value;
+  private final byte @Nullable [] value;
 
   /**
    * Default constructor
    *
    * @param value to wrap. Can be {@code null}
    */
-  protected PasswordPicoType(byte[] value) {
+  protected PasswordPicoType(byte @Nullable [] value) {
     this.value = value == null ? null : Arrays.copyOf(value, value.length);
   }
 
+  /** {@inheritDoc} */
   @Override
-  public byte[] value() {
+  public byte @Nullable [] value() {
     return value == null ? null : Arrays.copyOf(value, value.length);
   }
 
@@ -55,26 +58,32 @@ public abstract class PasswordPicoType implements PicoType<byte[]>, SecurePicoTy
    * <p>For passwords, we are using {@link MessageDigest#isEqual(byte[], byte[])} instead of {@link
    * Arrays#equals(byte[], byte[])} - the reason for this is to avoid timing attacks.
    *
-   * @param o the reference object with which to compare.
-   * @return {@code true} if this object is the same as the obj argument; {@code false} otherwise.
+   * <p>Error Prone check suppressed - the intent here is that PicoTypes represent instances of
+   * specific IDs which are not meant to be comparable between themselves.
+   *
+   * <p>{@inheritDoc}
+   *
    * @see <a href="https://cwe.mitre.org/data/definitions/208.html">CWE-208: Observable Timing
    *     Discrepancy</a>
    */
   @Override
-  public final boolean equals(Object o) {
+  @SuppressWarnings("EqualsGetClass")
+  public final boolean equals(@Nullable Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     if (value == null && ((PasswordPicoType) o).value == null) return true;
     return MessageDigest.isEqual(value, ((PasswordPicoType) o).value);
   }
 
+  /** {@inheritDoc} */
   @Override
   public final int hashCode() {
     return Arrays.hashCode(value);
   }
 
+  /** {@inheritDoc} */
   @Override
-  public String toString() {
+  public @NonNull String toString() {
     return getClass().getSimpleName() + "{value=" + mask() + '}';
   }
 }

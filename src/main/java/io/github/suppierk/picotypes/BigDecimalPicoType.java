@@ -25,28 +25,33 @@ package io.github.suppierk.picotypes;
 
 import java.math.BigDecimal;
 import java.util.Objects;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /** Abstract wrapper for {@link BigDecimal} type. */
 public abstract class BigDecimalPicoType
     implements PicoType<BigDecimal>, Comparable<BigDecimalPicoType> {
-  private final BigDecimal value;
+
+  @Nullable private final BigDecimal value;
 
   /**
    * Default constructor
    *
    * @param value to wrap. Can be {@code null}
    */
-  protected BigDecimalPicoType(BigDecimal value) {
+  protected BigDecimalPicoType(@Nullable BigDecimal value) {
     this.value = value;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public BigDecimal value() {
+  public @Nullable BigDecimal value() {
     return value;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public int compareTo(BigDecimalPicoType o) {
+  public int compareTo(@NonNull BigDecimalPicoType o) {
     return Objects.requireNonNull(value(), "Cannot compare null value against another value")
         .compareTo(
             Objects.requireNonNull(
@@ -54,8 +59,15 @@ public abstract class BigDecimalPicoType
                 "Cannot compare value against another null value"));
   }
 
+  /**
+   * Error Prone check suppressed - the intent here is that PicoTypes represent instances of
+   * specific IDs which are not meant to be comparable between themselves.
+   *
+   * <p>{@inheritDoc}
+   */
   @Override
-  public final boolean equals(Object o) {
+  @SuppressWarnings("EqualsGetClass")
+  public final boolean equals(@Nullable Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     return ((value == null && ((BigDecimalPicoType) o).value == null)
@@ -64,13 +76,15 @@ public abstract class BigDecimalPicoType
             && value.compareTo(((BigDecimalPicoType) o).value) == 0));
   }
 
+  /** {@inheritDoc} */
   @Override
   public final int hashCode() {
     return value == null ? 0 : value.stripTrailingZeros().hashCode();
   }
 
+  /** {@inheritDoc} */
   @Override
-  public String toString() {
+  public @NonNull String toString() {
     return getClass().getSimpleName() + "{value=" + value + '}';
   }
 }

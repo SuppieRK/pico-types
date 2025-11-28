@@ -24,27 +24,31 @@
 package io.github.suppierk.picotypes;
 
 import java.util.Objects;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /** Abstract wrapper for {@link Long} type. */
 public abstract class LongPicoType implements PicoType<Long>, Comparable<LongPicoType> {
-  private final Long value;
+  @Nullable private final Long value;
 
   /**
    * Default constructor
    *
    * @param value to wrap. Can be {@code null}
    */
-  protected LongPicoType(Long value) {
+  protected LongPicoType(@Nullable Long value) {
     this.value = value;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Long value() {
+  public @Nullable Long value() {
     return value;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public int compareTo(LongPicoType o) {
+  public int compareTo(@NonNull LongPicoType o) {
     return Objects.requireNonNull(value(), "Cannot compare null value against another value")
         .compareTo(
             Objects.requireNonNull(
@@ -52,20 +56,29 @@ public abstract class LongPicoType implements PicoType<Long>, Comparable<LongPic
                 "Cannot compare value against another null value"));
   }
 
+  /**
+   * Error Prone check suppressed - the intent here is that PicoTypes represent instances of
+   * specific IDs which are not meant to be comparable between themselves.
+   *
+   * <p>{@inheritDoc}
+   */
   @Override
-  public final boolean equals(Object o) {
+  @SuppressWarnings("EqualsGetClass")
+  public final boolean equals(@Nullable Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     return Objects.equals(value, ((LongPicoType) o).value);
   }
 
+  /** {@inheritDoc} */
   @Override
   public final int hashCode() {
     return Objects.hashCode(value);
   }
 
+  /** {@inheritDoc} */
   @Override
-  public String toString() {
+  public @NonNull String toString() {
     return getClass().getSimpleName() + "{value=" + value + '}';
   }
 }

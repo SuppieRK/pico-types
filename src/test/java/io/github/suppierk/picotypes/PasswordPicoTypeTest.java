@@ -63,6 +63,12 @@ class PasswordPicoTypeTest {
   }
 
   @Test
+  void equals_must_not_match_null_and_non_null() {
+    assertNotEquals(nullWrapper, wrapper);
+    assertNotEquals(wrapper, nullWrapper);
+  }
+
+  @Test
   void must_have_correct_toString() {
     assertEquals(TestType.class.getSimpleName() + "{value=*******}", wrapper.toString());
   }

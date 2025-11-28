@@ -24,27 +24,31 @@
 package io.github.suppierk.picotypes;
 
 import java.util.Objects;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /** Abstract wrapper for {@link Boolean} type. */
 public abstract class BooleanPicoType implements PicoType<Boolean>, Comparable<BooleanPicoType> {
-  private final Boolean value;
+  @Nullable private final Boolean value;
 
   /**
    * Default constructor
    *
    * @param value to wrap. Can be {@code null}
    */
-  protected BooleanPicoType(Boolean value) {
+  protected BooleanPicoType(@Nullable Boolean value) {
     this.value = value;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Boolean value() {
+  public @Nullable Boolean value() {
     return value;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public int compareTo(BooleanPicoType o) {
+  public int compareTo(@NonNull BooleanPicoType o) {
     return Objects.requireNonNull(value(), "Cannot compare null value against another value")
         .compareTo(
             Objects.requireNonNull(
@@ -52,20 +56,29 @@ public abstract class BooleanPicoType implements PicoType<Boolean>, Comparable<B
                 "Cannot compare value against another null value"));
   }
 
+  /**
+   * Error Prone check suppressed - the intent here is that PicoTypes represent instances of
+   * specific IDs which are not meant to be comparable between themselves.
+   *
+   * <p>{@inheritDoc}
+   */
   @Override
-  public final boolean equals(Object o) {
+  @SuppressWarnings("EqualsGetClass")
+  public final boolean equals(@Nullable Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     return Objects.equals(value, ((BooleanPicoType) o).value);
   }
 
+  /** {@inheritDoc} */
   @Override
   public final int hashCode() {
     return Objects.hashCode(value);
   }
 
+  /** {@inheritDoc} */
   @Override
-  public String toString() {
+  public @NonNull String toString() {
     return getClass().getSimpleName() + "{value=" + value + '}';
   }
 }

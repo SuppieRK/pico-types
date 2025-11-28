@@ -24,27 +24,31 @@
 package io.github.suppierk.picotypes;
 
 import java.util.Objects;
+import org.jspecify.annotations.NonNull;
+import org.jspecify.annotations.Nullable;
 
 /** Abstract wrapper for {@link Double} type. */
 public abstract class DoublePicoType implements PicoType<Double>, Comparable<DoublePicoType> {
-  private final Double value;
+  @Nullable private final Double value;
 
   /**
    * Default constructor
    *
    * @param value to wrap. Can be {@code null}
    */
-  protected DoublePicoType(Double value) {
+  protected DoublePicoType(@Nullable Double value) {
     this.value = value;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public Double value() {
+  public @Nullable Double value() {
     return value;
   }
 
+  /** {@inheritDoc} */
   @Override
-  public int compareTo(DoublePicoType o) {
+  public int compareTo(@NonNull DoublePicoType o) {
     return Objects.requireNonNull(value(), "Cannot compare null value against another value")
         .compareTo(
             Objects.requireNonNull(
@@ -52,8 +56,15 @@ public abstract class DoublePicoType implements PicoType<Double>, Comparable<Dou
                 "Cannot compare value against another null value"));
   }
 
+  /**
+   * Error Prone check suppressed - the intent here is that PicoTypes represent instances of
+   * specific IDs which are not meant to be comparable between themselves.
+   *
+   * <p>{@inheritDoc}
+   */
   @Override
-  public final boolean equals(Object o) {
+  @SuppressWarnings("EqualsGetClass")
+  public final boolean equals(@Nullable Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     return ((value == null && ((DoublePicoType) o).value == null)
@@ -62,13 +73,15 @@ public abstract class DoublePicoType implements PicoType<Double>, Comparable<Dou
             && Double.compare(value, ((DoublePicoType) o).value) == 0));
   }
 
+  /** {@inheritDoc} */
   @Override
   public final int hashCode() {
     return Objects.hashCode(value);
   }
 
+  /** {@inheritDoc} */
   @Override
-  public String toString() {
+  public @NonNull String toString() {
     return getClass().getSimpleName() + "{value=" + value + '}';
   }
 }
