@@ -40,11 +40,13 @@ public abstract class DoublePicoType implements PicoType<Double>, Comparable<Dou
     this.value = value;
   }
 
+  /** {@inheritDoc} */
   @Override
   public @Nullable Double value() {
     return value;
   }
 
+  /** {@inheritDoc} */
   @Override
   public int compareTo(@NonNull DoublePicoType o) {
     return Objects.requireNonNull(value(), "Cannot compare null value against another value")
@@ -54,7 +56,14 @@ public abstract class DoublePicoType implements PicoType<Double>, Comparable<Dou
                 "Cannot compare value against another null value"));
   }
 
+  /**
+   * Error Prone check suppressed - the intent here is that PicoTypes represent instances of
+   * specific IDs which are not meant to be comparable between themselves.
+   *
+   * <p>{@inheritDoc}
+   */
   @Override
+  @SuppressWarnings("EqualsGetClass")
   public final boolean equals(@Nullable Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
@@ -64,11 +73,13 @@ public abstract class DoublePicoType implements PicoType<Double>, Comparable<Dou
             && Double.compare(value, ((DoublePicoType) o).value) == 0));
   }
 
+  /** {@inheritDoc} */
   @Override
   public final int hashCode() {
     return Objects.hashCode(value);
   }
 
+  /** {@inheritDoc} */
   @Override
   public @NonNull String toString() {
     return getClass().getSimpleName() + "{value=" + value + '}';

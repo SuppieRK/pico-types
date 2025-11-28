@@ -41,11 +41,13 @@ public abstract class UuidPicoType implements PicoType<UUID>, Comparable<UuidPic
     this.value = value;
   }
 
+  /** {@inheritDoc} */
   @Override
   public @Nullable UUID value() {
     return value;
   }
 
+  /** {@inheritDoc} */
   @Override
   public int compareTo(@NonNull UuidPicoType o) {
     return Objects.requireNonNull(value(), "Cannot compare null value against another value")
@@ -55,18 +57,27 @@ public abstract class UuidPicoType implements PicoType<UUID>, Comparable<UuidPic
                 "Cannot compare value against another null value"));
   }
 
+  /**
+   * Error Prone check suppressed - the intent here is that PicoTypes represent instances of
+   * specific IDs which are not meant to be comparable between themselves.
+   *
+   * <p>{@inheritDoc}
+   */
   @Override
+  @SuppressWarnings("EqualsGetClass")
   public final boolean equals(@Nullable Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
     return Objects.equals(value, ((UuidPicoType) o).value());
   }
 
+  /** {@inheritDoc} */
   @Override
   public final int hashCode() {
     return Objects.hashCode(value);
   }
 
+  /** {@inheritDoc} */
   @Override
   public @NonNull String toString() {
     return getClass().getSimpleName() + "{value=" + value + '}';

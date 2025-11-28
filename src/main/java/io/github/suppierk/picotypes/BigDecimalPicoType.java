@@ -43,11 +43,13 @@ public abstract class BigDecimalPicoType
     this.value = value;
   }
 
+  /** {@inheritDoc} */
   @Override
   public @Nullable BigDecimal value() {
     return value;
   }
 
+  /** {@inheritDoc} */
   @Override
   public int compareTo(@NonNull BigDecimalPicoType o) {
     return Objects.requireNonNull(value(), "Cannot compare null value against another value")
@@ -57,7 +59,14 @@ public abstract class BigDecimalPicoType
                 "Cannot compare value against another null value"));
   }
 
+  /**
+   * Error Prone check suppressed - the intent here is that PicoTypes represent instances of
+   * specific IDs which are not meant to be comparable between themselves.
+   *
+   * <p>{@inheritDoc}
+   */
   @Override
+  @SuppressWarnings("EqualsGetClass")
   public final boolean equals(@Nullable Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
@@ -67,11 +76,13 @@ public abstract class BigDecimalPicoType
             && value.compareTo(((BigDecimalPicoType) o).value) == 0));
   }
 
+  /** {@inheritDoc} */
   @Override
   public final int hashCode() {
     return value == null ? 0 : value.stripTrailingZeros().hashCode();
   }
 
+  /** {@inheritDoc} */
   @Override
   public @NonNull String toString() {
     return getClass().getSimpleName() + "{value=" + value + '}';
