@@ -28,7 +28,7 @@ implementation("io.github.suppierk:pico-types:2.0.1")
 ## Technical aspects
 
 - Built for Java 17.
-- No third-party dependencies.
+- JSpecify as the only third-party dependency.
 - 100% unit and mutation test coverage.
 - `equals` and `hashCode` out of the box, no need to use Lombok - tested by [EqualsVerifier](https://github.com/jqno/equalsverifier).
 - Extensibility - all classes are `abstract` and ready to be implemented:
