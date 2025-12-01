@@ -51,7 +51,7 @@ dependencies {
 	api('org.jspecify:jspecify:1.0.0')
 
 	// https://mvnrepository.com/artifact/com.google.errorprone/error_prone_core
-	errorprone 'com.google.errorprone:error_prone_core:2.42.0'
+	errorprone 'com.google.errorprone:error_prone_core:2.45.0'
 	// https://mvnrepository.com/artifact/com.uber.nullaway/nullaway
 	errorprone 'com.uber.nullaway:nullaway:0.12.12'
 
