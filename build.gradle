@@ -56,7 +56,7 @@ dependencies {
 	errorprone 'com.uber.nullaway:nullaway:0.12.15'
 
 	// https://mvnrepository.com/artifact/org.junit/junit-bom
-	testImplementation(platform('org.junit:junit-bom:6.0.1'))
+	testImplementation(platform('org.junit:junit-bom:6.0.2'))
 
 	// https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter
 	testImplementation('org.junit.jupiter:junit-jupiter')
