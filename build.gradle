@@ -15,7 +15,7 @@ plugins {
 	id 'jacoco'
 
 	// https://plugins.gradle.org/plugin/net.ltgt.errorprone
-	id 'net.ltgt.errorprone' version '4.3.0'
+	id 'net.ltgt.errorprone' version '4.4.0'
 
 	// https://plugins.gradle.org/plugin/info.solidsoft.pitest
 	id 'info.solidsoft.pitest' version '1.15.0'
