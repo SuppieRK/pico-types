@@ -68,7 +68,7 @@ dependencies {
 	testImplementation('nl.jqno.equalsverifier:equalsverifier-nodep:4.3.1')
 
 	// https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-	testImplementation('com.fasterxml.jackson.core:jackson-databind:2.20.1')
+	testImplementation('com.fasterxml.jackson.core:jackson-databind:2.21.0')
 }
 
 tasks.withType(JavaCompile).configureEach {
