@@ -18,7 +18,7 @@ plugins {
 	id 'net.ltgt.errorprone' version '5.1.0'
 
 	// https://plugins.gradle.org/plugin/info.solidsoft.pitest
-	id 'info.solidsoft.pitest' version '1.15.0'
+	id 'info.solidsoft.pitest' version '1.19.0'
 
 	// https://plugins.gradle.org/plugin/com.diffplug.gradle.spotless
 	id 'com.diffplug.spotless' version '8.4.0'

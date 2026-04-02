@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.lang.reflect.Modifier;
+import java.util.Arrays;
 import java.util.stream.Stream;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -28,10 +29,13 @@ class IntegrityTest {
   @ParameterizedTest
   @MethodSource("picoTypes")
   void must_have_single_private_final_field(Class<? extends PicoType<?>> picoType) {
-    var fields = picoType.getDeclaredFields();
-    assertEquals(1, fields.length, "Must have one field");
+    var fields =
+        Arrays.stream(picoType.getDeclaredFields())
+            .filter(f -> !f.getName().startsWith("$$"))
+            .toList();
+    assertEquals(1, fields.size(), "Must have one field");
 
-    var field = fields[0];
+    var field = fields.get(0);
     assertTrue(Modifier.isPrivate(field.getModifiers()), "Field must be private");
     assertTrue(Modifier.isFinal(field.getModifiers()), "Field must be final");
   }
