@@ -48,7 +48,7 @@ repositories {
 
 dependencies {
 	// https://mvnrepository.com/artifact/org.jspecify/jspecify
-	api('org.jspecify:jspecify:1.0.0')
+	api('org.jspecify:jspecify:1.0.1')
 
 	// https://mvnrepository.com/artifact/com.google.errorprone/error_prone_core
 	errorprone 'com.google.errorprone:error_prone_core:2.42.0'
